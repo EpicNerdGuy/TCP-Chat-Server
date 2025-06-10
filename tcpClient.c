@@ -9,13 +9,18 @@
 #include <stdlib.h>
 #include<string.h>
 
-int main(){
+int main(int argc, char *argv[]){
 	int sockfd;
 	struct sockaddr_in client_addr;
 
 	client_addr.sin_family=AF_INET;
     client_addr.sin_port=htons(8086);
-    client_addr.sin_addr.s_addr=inet_addr("127.0.0.1");
+    if (argc != 2) {
+    printf("Usage: %s <server_ip>\n", argv[0]);
+    exit(EXIT_FAILURE);
+}
+    client_addr.sin_addr.s_addr = inet_addr(argv[1]);
+
 
     char buffer[1024];
     char sendline[1024];
